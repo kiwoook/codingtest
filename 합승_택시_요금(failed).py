@@ -22,8 +22,6 @@ def run_a(fare_map, now, n, cnt, destination):
             visited_a[i] = 0
 
 
-
-
 def solution(n, s, a, b, fares):
     global visited_a, visited_b, min_a, min_b
     answer = 0
