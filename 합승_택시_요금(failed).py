@@ -38,8 +38,7 @@ def solution(n, s, a, b, fares):
         fare_map[fare[0]][fare[1]] = fare[2]
         fare_map[fare[1]][fare[0]] = fare[2]
 
-    min_a = sum(sum(row) for row in fare_map)
-    min_b = sum(sum(row) for row in fare_map)
+    min_a = min_b = sum(sum(row) for row in fare_map)
 
     print(fare_map)
     # a를 동작 시켜서 최소로 가는 데를 탐색.
