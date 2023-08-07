@@ -13,7 +13,7 @@ def solution(answers):
     a_idx = 0
     b_idx = 0
     c_idx = 0
-    # 학생 1 구현
+
     for i in range(len_answer):
         a[i] = a1[a_idx]
         a_idx += 1
@@ -23,7 +23,7 @@ def solution(answers):
             b[i] = 2
         else:
             b[i] = b1[b_idx]
-        b_idx += 1
+            b_idx += 1
         if b_idx == 4:
             b_idx = 0
         c[i] = c1[c_idx]
@@ -31,9 +31,23 @@ def solution(answers):
         if c_idx == 10:
             c_idx = 0
 
-    print(a,b,c,answers)
+    print(a,b,c)
+
+    for i in range(len_answer):
+        if a[i] == answers[i]:
+            cnt[0] += 1
+        if b[i] == answers[i]:
+            cnt[1] += 1
+        if c[i] == answers[i]:
+            cnt[2] += 1
+
     print(cnt)
+    for i in range(3):
+        if cnt[i] == max(cnt):
+            answer.append(i + 1)
+
     return answer
 
-
-solution([1, 2, 3, 4, 5])
+#
+# print(solution([[1,3,2,4,2]]))
+print(solution([2, 3, 4, 5, 1]))
