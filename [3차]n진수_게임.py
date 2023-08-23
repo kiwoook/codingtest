@@ -5,6 +5,8 @@
 def number(n, arg):
     num = ''
 
+
+
     while arg >= 1:
         if arg % n >= 10:
             num = str(chr(arg % n - 10 + ord('A'))) + num
