@@ -1,35 +1,35 @@
-from collections import Counter
 from collections import defaultdict
+from itertools import combinations
 
 
 def solution(orders, course):
     answer = []
 
-    total_order = []
-    counting_dict = defaultdict(list)
-    for order in orders:
-        total_order.append(list(order))
+    for idx, order in enumerate(orders):
+        orders[idx] = set(list(order))
 
-    total_order = dict(Counter(sum(total_order, [])))
+    for c in course:
+        comb = []
+        for order in orders:
+            comb.append(list(combinations(order,c)))
+        comb = set(sum(comb, []))
+        cnt_dict = defaultdict(list)
+        for k in comb:
+            cnt = 0
+            k = set(k)
+            for order in orders:
+                if order >= k:
+                    cnt += 1
+            if cnt >= 2:
+                cnt_dict[cnt].append(''.join(sorted(k)))
+        if cnt_dict:
+            max_value = max(cnt_dict.keys())
+            answer.append(cnt_dict[max_value])
 
-    print(total_order)
-
-    for key, value in total_order.items():
-        counting_dict[value].append(key)
-
-    counting_dict = dict(counting_dict)
-
-    counting_key = []
-    for key in counting_dict.keys():
-        counting_key.append(key)
-
-    counting_key.sort()
-
-
-
-    print(counting_dict)
+    answer = sorted(list(set(sum(answer, []))))
 
     return answer
 
 
 print(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4]))
+# print(solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2, 3, 5]))
