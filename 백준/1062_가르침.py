@@ -30,7 +30,12 @@ else:
             checking_list.append(chr(i + ord('a')))
 
     # k 개수 만큼 선택하자.
-    able_list = list(combinations(checking_list, k))
+    able_list = []
+    if len(checking_list) < k:
+        print(n)
+        exit(0)
+    else:
+        able_list = list(combinations(checking_list, k))
 
     for able in able_list:
         tmp_using = using[:]
