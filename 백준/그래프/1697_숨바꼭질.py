@@ -5,7 +5,6 @@ n, k = map(int, input().split())
 distance = [0 for _ in range(100001)]
 
 q = deque([n])
-cnt = 0
 
 while q:
     # 값이 0 일때를 분기

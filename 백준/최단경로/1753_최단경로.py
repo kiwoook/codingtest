@@ -24,10 +24,10 @@ while q:
 
     if distance[now] < dist:
         continue
-    for i in graph[now]:
-        if dist + i[1] < distance[i[0]]:
-            distance[i[0]] = dist + i[1]
-            heapq.heappush(q, (dist + i[1], i[0]))
+    for pos, weight in graph[now]:
+        if dist + weight < distance[pos]:
+            distance[pos] = dist + weight
+            heapq.heappush(q, (dist + weight, pos))
 
 
 for dist in distance[1:]:
