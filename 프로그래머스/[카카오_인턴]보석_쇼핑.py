@@ -1,8 +1,9 @@
-from collections import deque
-
+from collections import deque, Counter
 
 def solution(gems):
     gems_set = set(gems)
+
+
     start, end = 0, 0
 
     first, second = 0, 10000
@@ -13,7 +14,7 @@ def solution(gems):
         return [1, 1]
     sw = 0
 
-    while len(gems) >= end >= start:
+    while start <= end:
         # set으로 변환하면 시간오래걸린다. 어떻게할깡...
         if set(q) == gems_set and end == len(gems):
             print(start, end)

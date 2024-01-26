@@ -1,35 +1,43 @@
 import sys
-from collections import defaultdict, deque
+from collections import defaultdict
 
+sys.setrecursionlimit(10001)
 
-def bfs(start):
-    visited = [False] * (n + 1)
-    parent_dict = {}
+def dfs(node):
+    global visited, distance
 
-    q = deque([start])
+    visited[node] = 1
 
-    while q:
-        node = q.popleft()
-        visited[node] = True
-
-        for neighbor in graph[node]:
-            if not visited[neighbor]:
-                q.append(neighbor)
-                parent_dict[neighbor] = node
-
-    return parent_dict
+    for neighbor, weight in graph[node]:
+        if visited[neighbor] == 0:
+            distance[neighbor] = distance[node] + weight
+            dfs(neighbor)
 
 
 n = int(input())
 
 graph = defaultdict(list)
+tree = defaultdict(list)
 
 for _ in range(n - 1):
-    a, b = map(int, sys.stdin.readline().rstrip().split())
-    graph[a].append(b)
-    graph[b].append(a)
+    a, b, c = map(int, sys.stdin.readline().rstrip().split())
+    graph[a].append((b, c))
+    graph[b].append((a, c))
+    tree[a].append((b, c))
 
-parent_dict = bfs(1)
+distance = [0 for _ in range(n + 1)]
+visited = [0 for _ in range(n + 1)]
 
-for i in range(2, n + 1):
-    print(parent_dict[i])
+dfs(1)
+
+max_node = 0
+max_distance = 0
+for idx, x in enumerate(distance):
+    if x >= max_distance:
+        max_distance = x
+        max_node = idx
+
+visited = [0 for _ in range(n + 1)]
+distance = [0 for _ in range(n + 1)]
+dfs(max_node)
+print(max(distance))
