@@ -11,13 +11,18 @@ def find_parent(x):
 
 
 def union(a, b):
-    global parent
+    global parent, size
 
     root_a = find_parent(a)
     root_b = find_parent(b)
 
     if root_a != root_b:
-        parent[root_b] = root_a
+        if size[root_a] < size[root_b]:
+            parent[root_a] = root_b
+            size[root_b] += size[root_a]
+        else:
+            parent[root_b] = root_a
+            size[root_a] += size[root_b]
 
 
 T = int(input())
@@ -25,27 +30,19 @@ T = int(input())
 for _ in range(T):
     F = int(input())
     parent = {}
-    root = ''
-    friend = set()
+    size = {}
+
     for _ in range(F):
         a, b = sys.stdin.readline().rstrip().split()
 
-        if len(root) == 0:
-            root = a
         if a not in parent:
             parent[a] = a
+            size[a] = 1
         if b not in parent:
             parent[b] = b
+            size[b] = 1
 
-        if find_parent(a) != find_parent(b):
-            union(a, b)
+        union(a, b)
 
-        cnt = 0
-
-        for key in parent.keys():
-            if parent[key] != root:
-                find_parent(key)
-            if parent[key] == root:
-                cnt += 1
-
+        cnt = size[find_parent(a)]  # 루트 노드의 집합 크기를 가져옴
         print(cnt)
