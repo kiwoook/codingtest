@@ -17,7 +17,7 @@ def dfs(y, x, length):
     if y < c:
         pass
 
-    if
+
 
 
 n, r, c = map(int, input().split())

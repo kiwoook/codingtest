@@ -1,6 +1,3 @@
-def solution(num1, num2):
-    answer = 0
-    return answer
+a = {1,2,3,4}
 
-
-print(solution(2, 3))
+print({1,2} ^ a)
