@@ -1,3 +1,5 @@
-a = {1,2,3,4}
+import sys
 
-print({1,2} ^ a)
+a = sys.stdin.readline().rstrip()
+# 입력 값이 숫자일때
+print(a)
