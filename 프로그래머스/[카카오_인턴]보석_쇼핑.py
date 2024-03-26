@@ -1,12 +1,11 @@
-from collections import deque, Counter
+from collections import deque, defaultdict
+
 
 def solution(gems):
     gems_set = set(gems)
-
-
+    gems_dict = defaultdict(int)
     start, end = 0, 0
-
-    first, second = 0, 10000
+    first, second = 0, int(1e9)
 
     q = deque([])
 
@@ -15,19 +14,24 @@ def solution(gems):
     sw = 0
 
     while start <= end:
-        # set으로 변환하면 시간오래걸린다. 어떻게할깡...
-        if set(q) == gems_set and end == len(gems):
-            print(start, end)
+        if len(gems_dict) == len(gems_set):
             sw = 1
             if len(q) == 0:
                 break
             q.popleft()
+            gems_dict[gems[start]] -= 1
+            if gems_dict[gems[start]] == 0:
+                del gems_dict[gems[start]]
             start += 1
             if end - start < second - first:
                 first, second = start, end
         else:
-            q.append(gems[end])
-            end += 1
+            if end < len(gems):
+                q.append(gems[end])
+                gems_dict[gems[end]] += 1
+                end += 1
+            else:
+                start += 1
 
     if not sw:
         return [1, len(gems)]
@@ -35,5 +39,6 @@ def solution(gems):
     return [first, second]
 
 
-print(solution(["ZZZ", "YYY", "NNNN", "YYY", "BBB"]))
+# print(solution(["ZZZ", "YYY", "NNNN", "YYY", "BBB"]))
 print(solution(["A", "B", "B", "B", "C", "D", "D", "D", "D", "D", "D", "B", "C", "A"]))
+# answer 11 14
