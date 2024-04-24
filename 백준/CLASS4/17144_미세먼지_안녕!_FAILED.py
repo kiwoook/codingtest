@@ -1,14 +1,14 @@
 import sys
 from collections import deque
 
-dx = [-1, 0, 1, 0]
-dy = [0, 1, 0, -1]
+dx = [0, 1, 0, -1]
+dy = [-1, 0, 1, 0]
 
 
 def clean(a, b):
     # 위에 회전
     y, x = a, 1
-    index = 1  # 우부터 시작 우 상 좌 하
+    index = 1  # 우부터 시작
     temp = 0  # 공기청정기에서 나오는 바람
     while True:
         ny = y + dy[index]
@@ -55,34 +55,29 @@ sw = 0
 for i in range(r):
     for k in range(c):
         if board[i][k] > 0:
-            q.append((i, k))
+            q.append((i, k, board[i][k]))
         if board[i][k] == -1 and sw == 0:
             air_q.append((i, k))
             sw = 1
 
 for _ in range(t):
-    spread_board = [[0 for _ in range(c)] for _ in range(r)]
     while q:
-        y, x = q.popleft()
+        y, x, value = q.popleft()
         cnt = 0
 
         for i in range(4):
             ny = y + dy[i]
             nx = x + dx[i]
             if 0 <= ny < r and 0 <= nx < c and board[ny][nx] != -1:
-                spread_board[ny][nx] += board[y][x] // 5
+                board[ny][nx] += value // 5
                 cnt += 1
-        board[y][x] -= cnt * (board[y][x] // 5)
+        board[y][x] -= cnt * (value // 5)
 
     for i in range(r):
         for k in range(c):
-            board[i][k] += spread_board[i][k]
             if board[i][k] > 0:
-                q.append((i, k))
+                q.append((i, k, board[i][k]))
 
-    for i in range(r):
-        print(*board[i])
-    print(air_q)
     clean(air_q[0][0], air_q[0][0] + 1)
     print("-----")
     for i in range(r):
