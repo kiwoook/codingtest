@@ -22,7 +22,7 @@ def dfs(y, x):
     if y >= 9:
         # 모든 칸을 채웠을 때 출력
         for row in board:
-            print(''.join(list(map(str, row))))
+            print(*row)
         exit(0)
 
     next_x = (x + 1) % 9
@@ -41,7 +41,7 @@ def dfs(y, x):
 board = []
 
 for i in range(9):
-    tmp = list(map(int, list(sys.stdin.readline().rstrip())))
+    tmp = list(map(int, sys.stdin.readline().rstrip().split()))
     board.append(tmp)
 # 백트래킹을 해야함
 dfs(0, 0)
