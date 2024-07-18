@@ -3,7 +3,6 @@ import sys
 
 INF = 1e9
 
-
 v, e = map(int, input().split())
 graph = [[] for _ in range(v + 1)]
 
@@ -28,7 +27,6 @@ while q:
         if dist + weight < distance[pos]:
             distance[pos] = dist + weight
             heapq.heappush(q, (dist + weight, pos))
-
 
 for dist in distance[1:]:
     if dist == INF:
